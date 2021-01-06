@@ -16,6 +16,7 @@ class Point_c {
   double x;
   double y;
 
+//friend is like defining the function outside / not a member of the class
   friend std::ostream& operator<<(std::ostream& os, const Point_c& p) {
     os << "Class. x = " << p.x << "; y = " << p.y << std::endl;
     return os;
@@ -28,7 +29,7 @@ int main() {
   ps.x = 9.9;
   ps.y = 3. / 7;
 
-  std::cout << ps;
+  std::cout << ps; // == operator<<(std::cout, ps);
 
   Point_c pc;
   // pc.x =7.6; // error
@@ -36,7 +37,8 @@ int main() {
 
   Point_s* p = &ps;
   p->x = 0.0;
-  std::cout << *p;  // operator overloading does not work with pointers
+  std::cout << *p;  // operator overloading does not work with pointers 
+                    // has to be dereferenced first
 
   return 0;
 }

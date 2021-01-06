@@ -1,9 +1,10 @@
 #include <iomanip>
 #include <iostream>
 
-void print_ma(int m[][5], int dim1);  // ugly and not flexible
+void print_ma(int m[][5], int dim1);  // ugly and not flexible - cannot be reused
+// for a matrix with 7 columns
 // void print_ma(int m[][], int dim1, int dim2); // error second
-// dimension must be
+// dimension (number of columns) must be
 // knwon at compile time
 
 void print_ma(int* p, int row, int col);  // the only possible solution
@@ -23,10 +24,10 @@ int main() {
 
   for (int i = 0; i < 6; ++i) {
     for (int j = 0; j < 5; ++j)
-      std::cout << &ma[i][j] << " ";
-    std::cout << std::endl;
-  }
-
+      std::cout << &ma[i][j] << " "; // elements on the same row are contiguous - row major order
+    std::cout << std::endl;           //the matrix is simply an one long array
+  }                                   // element are given by i * number of element in column + j
+                                      // ma[i][j]==m[i*n_c + j]
   // int *pma {ma}; 		// error
   // int *pma[5] {ma};		// error
   int* p{reinterpret_cast<int*>(ma)};
@@ -35,7 +36,7 @@ int main() {
   // print_ma(ma, 6, 5); 	// error
   print_ma(p, 6, 5);
 
-  auto d_ma = new int[6 * 5]{};
+  auto d_ma = new int[6 * 5]{}; //matrix as an array - suggested way
 
   std::cout << std::endl;
 

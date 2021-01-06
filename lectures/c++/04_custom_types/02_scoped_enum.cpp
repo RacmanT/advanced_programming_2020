@@ -1,11 +1,12 @@
 #include <iostream>
 
-enum class color { red, yellow, green };
+enum class color { red, yellow, green }; //keyword class
+//enum class led { red, yellor, green}
 // enum class color{red=0, yellow=1, green=2}; // equivalent
 
 void dwim(const color c) {
   switch (c) {
-    case color::red:
+    case color::red: //prepend the scope operator before the value
       std::cout << "option 1: red\n";
       break;
     case color::yellow:

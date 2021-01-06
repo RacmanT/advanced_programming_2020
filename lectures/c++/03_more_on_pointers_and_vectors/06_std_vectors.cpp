@@ -1,3 +1,6 @@
+/* to use instead of dynamic arrays 
+std::vector arrays that can be resized at runtime */
+
 #include <iostream>
 #include <string>
 #include <vector>
@@ -10,7 +13,7 @@ void print_vector(const std::vector<T>& v, const std::string& s);
 
 int main() {
   std::vector<int> v0{1, 2, 4};
-  std::vector<int> v1(4, 4);
+  std::vector<int> v1(4, 4); //4 elements each has value 4
 
   print_vector(v0, "v0");
   print_vector(v1, "v1");
@@ -20,7 +23,7 @@ int main() {
   print_vector(v1, "v1 after copy");
 
   for (auto x : {7, 8, 9})
-    v1.push_back(x);  // or v1.emplace_back(x);
+    v1.push_back(x);  // or v1.emplace_back(x); -push one element and resize the array
 
   print_vector(v1, "v1 after push_back");
 

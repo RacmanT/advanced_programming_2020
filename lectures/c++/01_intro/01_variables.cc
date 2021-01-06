@@ -39,10 +39,11 @@ int main() {
   std::cout << s;
 
   // narrowing effect
+  //using the universal initializator the compiler will complain if we use a different type then the declered one
   int var = 6.9;  // try to initialize var with the universal and
                   // uniform initialization
   // int v_narrow {6.9}; // compiler error or warning with variables
-  // int v_narrow_w {int(a+b)}; // suppress error/warning with a cast
+  // int v_narrow_w {int(a+b)}; // suppress error/warning with a cast in the case we want the cast
 
   std::cout << var << "\n";
 
@@ -82,13 +83,13 @@ int main() {
 
   int ve{int(ce * a)};  // ok create a variable from constexpr
 
-  // constexpr int  n_ce {ve*8.1234/M_PI}; // error
+  // constexpr int  n_ce {ve*8.1234/M_PI}; // error because the value of the variable is not guaranteed to be the same at compile time
 
   // cast to void to suppress warning of unused variable
   (void)ve;
   long double lpi = 3.141592653589793238462L;
   std::cout << std::setprecision(50) << M_PI << std::endl;
-  std::cout << std::hex << 43 << std::endl;
+  std::cout << std::hex << 43 << std::endl;  //hexadecimal reppresentation of 43
   std::cout << std::oct << 43 << std::endl;
   std::cout << std::dec << 43 << std::endl;
 

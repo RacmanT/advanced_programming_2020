@@ -28,7 +28,7 @@ void choose_a_name::nested::hello1() {
             << "variable is " << choose_a_name::variable << std::endl;
 }
 
-namespace choose_a_name {
+namespace choose_a_name { //namespace reopened
   namespace nested {
     void hello2() {
       std::cout << "hello2 from nested\n"
@@ -37,7 +37,7 @@ namespace choose_a_name {
   }  // namespace nested
 }  // namespace choose_a_name
 
-using namespace choose_a_name;
+using namespace choose_a_name; //upgrade to the global namespace
 
 void nested::hello3() {
   std::cout << "hello3 from nested\n"

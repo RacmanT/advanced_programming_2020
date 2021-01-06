@@ -6,7 +6,7 @@ void swap_cxx(int& a, int& b);
 
 int main() {
   int a = 3;
-  int b = {7};
+  int b  {7};
   buggy_swap(a, b);
   std::cout << "buggy:\texpected 7 3 --> " << a << " " << b << "\n";
 

@@ -14,9 +14,12 @@ int main() {
 
   // the value of variable d can be changed through either ref or
   // ptr as follows
-  ref = 7.7;
+  ref = 7.7; 
   std::cout << "value of   d: " << d << std::endl;
 
   *ptr = 5.5;
   std::cout << "value of   d: " << d << std::endl;
 }
+ 
+/*  References are aliases of a given variable
+  (pointers that automatically dereference themelf) */

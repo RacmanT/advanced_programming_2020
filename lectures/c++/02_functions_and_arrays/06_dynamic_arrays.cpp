@@ -1,4 +1,5 @@
 #include <iostream>
+// keyword 'new' in order to create a dynamic array
 
 int main() {
   std::cout << "Please insert array lenght: ";
