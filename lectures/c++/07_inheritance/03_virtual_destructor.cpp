@@ -19,3 +19,7 @@ int main() {
 
   return 0;
 }
+/* 
+in order to call the right destructor 
+this should be marked as virtual 
+we will pay in terms of memory overload */

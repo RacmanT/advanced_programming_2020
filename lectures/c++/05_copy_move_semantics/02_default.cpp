@@ -19,9 +19,10 @@ int main() {
 
   S s3{};  // calls {} on each member: S s3 { {}, {}, {} };
 
-  std::cout << s1.a << "--" << s1.b << "--" << s1.s << "\n";
-  std::cout << s2.a << "--" << s2.b << "--" << s2.s << "\n";
-  std::cout << s3.a << "--" << s3.b << "--" << s3.s << "\n";
+  std::cout << s1.a << "--" << s1.b << "--" << s1.s << "\n"; //random values
+  std::cout << s2.a << "--" << s2.b << "--" << s2.s << "\n"; // 1, 2.3, alberto
+  std::cout << s3.a << "--" << s3.b << "--" << s3.s << "\n"; // 0 0 ""
+
 
   return 0;
 }

@@ -12,12 +12,19 @@ struct Animal {
   Animal() : Animal{0, 0} {}  // delegating constructor
 
   virtual void speak() const = 0;  // pure virtual function ==> abstract class
+  // a class with at least one pure virtual method
+  // become an abstract class and cannott instantiate objects
   virtual void info() const noexcept {
     std::cout << "age:\t" << age << '\n' << "weight:\t" << weight << '\n';
   }
 
   virtual ~Animal() {}  // why? see file 03_virtual_destructor.cc
 };
+/*
+  virtual table: contains override methods
+  implemented through id-s and is slower then static polymorphism 
+  (templates)
+*/
 
 struct Dog : public Animal {
   void speak() const noexcept override { std::cout << "Bau\n"; }

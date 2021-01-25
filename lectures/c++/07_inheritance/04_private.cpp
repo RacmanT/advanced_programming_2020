@@ -5,6 +5,9 @@ class Animal {
   unsigned int age;
   double weight;
 
+/* parent's members should be marked as prived
+and to set them we use the public methods (constructors,...)
+ */
  public:
   Animal(const unsigned int a, const double w) : age{a}, weight{w} {
     AP_ERROR_GE(weight, 0) << "invalid weight!\n";
@@ -56,7 +59,7 @@ class NonDangerousSnake : public Snake {
 
 struct Python : public NonDangerousSnake {};
 
-using Anaconda = DangerousSnake;
+using Anaconda = DangerousSnake; //alias for DangerousSnake
 
 void print_animal(const Animal& a) noexcept {
   std::cout << "throught ref\n";

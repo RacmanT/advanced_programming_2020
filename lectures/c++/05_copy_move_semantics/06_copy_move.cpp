@@ -23,9 +23,13 @@ class Vector {
   // default ctor
   Vector() { std::cout << "default ctor\n"; }  // _size uninitialized
   // Vector() : _size{}, elem{} { std::cout << "default ctor\n"; } // this could
-  // be better Vector() = default;
+  // be better
+  // best solution: Vector() = default;
 
   ~Vector() = default;
+
+  // shallow copy - address is copied
+  // deep copy - vfalue are copied
 
   /////////////////////////
   // copy semantics
@@ -34,19 +38,31 @@ class Vector {
   Vector(const Vector& v);
 
   // copy assignment -- deep copy
-  Vector& operator=(const Vector& v);
+  Vector& operator=(const Vector& v); // l - value reference
   // end of copy semantics
   /////////////////////////
 
   /////////////////////////
-  // move semantics
+  // move semantics - steal resources from v
+  // supported also by unique ptrs because at the
+  // end there is just one pntr pointing to that memory
 
   // move ctor
-  Vector(Vector&& v) : _size{std::move(v._size)}, elem{std::move(v.elem)} {
+  Vector(Vector&& v) // r - value reference
+   : _size{std::move(v._size)}, elem{std::move(v.elem)} {
     std::cout << "move ctor\n";
   }
+  /*
+  r value has no name and can't be on the right side of an equal assignament
+  e.g v2 = Vector<double>(7) so the = will call the move assignment
+  l value has a name a can be on the left side
+  e.g v2 = v1 (named object) so the = will call the copy assignment
 
-  // Vector(Vector&& v) = default; // ok
+  to force a move on an l - value reference i can call Vector<double> v3{std::move(v1)}
+
+  */
+
+  // Vector(Vector&& v) = default; // ok if we would not have row pointers
 
   // move assignment
   Vector& operator=(Vector&& v) {
@@ -56,7 +72,7 @@ class Vector {
     return *this;
   }
 
-  // Vector& operator=(Vector&& v) = default; // ok
+  // Vector& operator=(Vector&& v) = default; // ok if we would not have row pointers
 
   // end move semantics
   /////////////////////////
@@ -77,8 +93,13 @@ class Vector {
 // copy ctor
 template <typename T>
 Vector<T>::Vector(const Vector& v) : _size{v._size}, elem{new T[_size]} {
+  // we allocate a new array and we populate it 
   std::cout << "copy ctor\n";
-  std::copy(v.begin(), v.end(), begin());
+  std::copy(v.begin(), v.end(), begin() /* , end() - automatically deduced */);
+  /* alternative:
+  for(std::size_t i{0}; i<_size; ++i)
+    elem[i] = v[i];
+  */
 }
 
 // copy assignment
@@ -91,9 +112,9 @@ Vector<T>& Vector<T>::operator=(const Vector& v) {
   //
 
   elem.reset();              // first of all clean my memory
-  auto tmp = v;              // then use copy ctor
-  (*this) = std::move(tmp);  // finally move assignment
-
+  auto tmp = v;              // deep copy: use copy ctor in order to create a temporary vector
+  (*this) = std::move(tmp);  // finally move to swap temporary with myself
+  
   // or we do everything by hand..
   // and we can do not reset and call new again if the sizes are suitable
 
@@ -105,7 +126,7 @@ Vector<T>& Vector<T>::operator=(const Vector& v) {
 
 template <typename T>
 // why we return by value?
-Vector<T> operator+(const Vector<T>& lhs, const Vector<T>& rhs) {
+Vector<T> operator+(const Vector<T>& lhs, const Vector<T>& rhs) { // sum of vectors
   const auto size = lhs.size();
 
   // how we should check that the two vectors have the same size?
@@ -114,7 +135,7 @@ Vector<T> operator+(const Vector<T>& lhs, const Vector<T>& rhs) {
   for (std::size_t i = 0; i < size; ++i)
     res[i] = lhs[i] + rhs[i];
 
-  return res;
+  return res; // copy or move?
 }
 
 template <typename T>

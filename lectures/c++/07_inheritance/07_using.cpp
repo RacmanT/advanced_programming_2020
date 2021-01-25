@@ -1,11 +1,12 @@
 #include <iostream>
 
+// overloading does not work through inheritance
 struct foo {
   void f(int x) { std::cout << "int " << x << std::endl; }
 };
 
 struct bar : public foo {
-  using foo::f;  // brings all foo::f to this scope
+  using foo::f;  // brings all foo::f to this scope <-- trick to achieve overloading
   void f(char x) { std::cout << "char " << x << std::endl; }
 };
 

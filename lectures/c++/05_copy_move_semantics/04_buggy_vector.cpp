@@ -7,16 +7,16 @@ class Vector {
 
  public:
   explicit Vector(const std::size_t length)
-      : elem{new T[length]{}}, _size{length} {}
+      : elem{new T[length]{}}, _size{length} {} //new array ofT with initialized values {}
 
   ~Vector() { delete[] elem; }
 
-  const T& operator[](const std::size_t& i) const { return elem[i]; }
-  T& operator[](const std::size_t& i) { return elem[i]; }
+  const T& operator[](const std::size_t& i) const { return elem[i]; } //read
+  T& operator[](const std::size_t& i) { return elem[i]; } //write
 
   std::size_t size() const { return _size; }
 
-  // range-for
+  // implemented for the range-for (2 versions: one for read and one for write)
   const T* begin() const { return elem; }
   T* begin() { return elem; }
 
@@ -35,7 +35,9 @@ int main() {
     std::cout << x << " ";
   std::cout << std::endl;
 
-  Vector<int> v2{v1};  // default copy constructor
+  Vector<int> v2{v1};  // compiler generated copy constructor
+  // the behaviour is not what we expected because it is copied 
+  // the address instead of the values
 
   std::cout << "v2 after default copy ctor: ";
   for (const auto x : v2)
@@ -55,6 +57,13 @@ int main() {
   for (const auto x : v1)
     std::cout << x << " ";
   std::cout << std::endl;
-
+/*
+takeaway: the default copy constructor may not
+behave as expected with object having a row pointer as a member
+(because is copying by values but this doesn't work with pointers)
+When a member is a pointer then copying the object correspond to
+having another object with a member pointing to the same location as
+before (while size_t is copied by value since is a build in type)
+*/
   return 0;
 }

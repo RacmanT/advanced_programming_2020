@@ -15,7 +15,7 @@ class Vector {
 
   std::size_t size() const { return _size; }
 
-  // range-for
+  // range-for (2 versions for read and for write)
   const T* begin() const { return elem.get(); }
   T* begin() { return elem.get(); }
 
@@ -26,6 +26,8 @@ class Vector {
 int main() {
   Vector<double> v1{7};
   // Vector<double> v2{v1}; // default copy ctor calls a deleted function by
-  // std::unique_ptr
+  // std::unique_ptr are implementing the idea of unique ownership
+  // which is obtain by putting Copy = delete
+  // can not have 2 objects with a member pointing to the same location
   return 0;
 }

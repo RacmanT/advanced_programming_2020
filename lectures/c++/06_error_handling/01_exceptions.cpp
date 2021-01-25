@@ -29,7 +29,7 @@ int main() {
               << "This means there is a bug in the algorithm that generated "
                  "this number.\n";
     return 2;
-  } catch (...) {
+  } catch (...) { // check all the exceptions
     std::cerr << "Unknown exception. Aborting.\n";
     return 3;
   }
